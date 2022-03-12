@@ -129,9 +129,20 @@ function update_mysql_root_password() {
 
 function set_root_login_path() {
 
+
+
+
   echo "Set Root login-path"
   export ROOTMYQL=`cat /mnt/share_app2/.my.p|grep root`
   export ROOTMYQLP=${ROOTMYQL:5}
+  
+
+  echo "Create my.cnf file "
+  echo "[client]" > ~/.my.cnf
+  echo "user=root" >> ~/.my.cnf
+  echo "password=${ROOTMYQLP}" >> ~/.my.cnf
+  chmod 400 ~/.my.cnf
+
   echo "Type root passwrod below: "${ROOTMYQLP}
   mysql_config_editor set --login-path=r3306 -u root -p --socket=/var/lib/mysql/mysql.sock
 
@@ -166,12 +177,12 @@ fi
 #mount share drive 
 if [[ "$HOSTNAME" == *"app2"* ]]  ; then
   echo "mount app2 share"
-  mount -t nfs 10.10.1.12:/share /mnt/share_app2
+  mount -t nfs ${IP_SUBNET}.12:/share /mnt/share_app2
 fi
 
 if [[ "$HOSTNAME" == *"app4"* ]] ; then
-  mount -t nfs 10.10.1.14:/share /mnt/share_app4
-  mount -t nfs 10.10.1.12:/share /mnt/share_app2
+  mount -t nfs ${IP_SUBNET}.14:/share /mnt/share_app4
+  mount -t nfs ${IP_SUBNET}.12:/share /mnt/share_app2
 fi
 
 

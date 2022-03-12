@@ -24,6 +24,7 @@ Cloud Init script
 app1
 ##########
 #!/bin/bash
+export IP_SUBNET=10.10.1
 export BRANCH=dev-1
 export REPO_NAME=oci-1app-1db-server
 REPODIR=${HOME}/repository/${BRANCH}
@@ -36,7 +37,8 @@ unzip ${BRANCH}.zip
 cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
-sudo ./bin/01.install-server-4app-2db.sh
+
+sudo ./bin/01.install-server.sh
 
 
 ###########################

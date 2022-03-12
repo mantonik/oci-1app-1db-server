@@ -22,7 +22,7 @@
 # 2/13 - add change permission to root/ id_rsa files 
 # 2/20 - add mysql instalation check 
 #       - add else for installing mysql
-#
+# 4/13/2022 MA update script for 1 app and 1 db server instalation , remove reference to app3-4 as this will be just app instalation on app1 and mysql instalation on app2 
 ##################
 #Parameters 
 ##################
@@ -96,31 +96,54 @@ fi
 
  
 echo "Install required packages"
-dnf install -y nginx php php-fpm php-mysqlnd php-json sendmail htop tmux mc rsync clamav clamav-update rclone setroubleshoot-server setools-console nfs-utils
+if [[ "$HOSTNAME" == *"app1"* ]]; then
 
-#Setup web folder structure
-mkdir -p /data/www/default/htdocs
-dnf module list php
-dnf -y module reset php
-#set php 7.4 as default 
-dnf -y module enable php:7.4
-dnf module list php
+  dnf install -y nginx php php-fpm php-mysqlnd php-json sendmail htop tmux mc rsync clamav clamav-update rclone setroubleshoot-server setools-console nfs-utils
 
-#Add user opc to nginx group
-usermod -G opc nginx
+  #Setup web folder structure
+  mkdir -p /data/www/default/htdocs
+  dnf module list php
+  dnf -y module reset php
+  #set php 7.4 as default 
+  dnf -y module enable php:7.4
+  dnf module list php
 
-#PHP configuration 
-echo "#Enable mysqli extension" >> /etc/php.ini
-echo "extension=mysqli" >> /etc/php.ini
-sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf
-sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf
+  #Add user opc to nginx group
+  usermod -G opc nginx
+
+  #PHP configuration 
+  echo "#Enable mysqli extension" >> /etc/php.ini
+  echo "extension=mysqli" >> /etc/php.ini
+  sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf
+  sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf
+
+  #mv /usr/share/nginx/html/* /data/www/default/htdocs
+  rm -fr /usr/share/nginx/html
+  ln -s /data/www/default/htdocs /usr/share/nginx/html
+  rm -f /data/www/default/htdocs/index.html
+
+  #set services to start automaticly
+  echo "Set auto startup of applications"
+  chkconfig nginx on
+  chkconfig php-fpm on
+
+  #SET enforcing for current session
+  echo "Set SELINUX permission for nginx to serve from /data/www folder"
+  setenforce 1
+  #sealert -a /var/log/audit.d/audit.log 
+  semodule -i /etc/selinux/nginx.pp
+  semodule -i /etc/selinux/my-phpfpm.pp
+
+  setsebool httpd_can_network_connect on
+  setsebool httpd_use_nfs on
 
 
-#If servers are app2 and app4 - install MySQL 
-#mv /usr/share/nginx/html/* /data/www/default/htdocs
-rm -fr /usr/share/nginx/html
-ln -s /data/www/default/htdocs /usr/share/nginx/html
-rm -f /data/www/default/htdocs/index.html
+fi
+
+if [[ "$HOSTNAME" == *"app2"* ]]; then
+  dnf install -y sendmail htop tmux mc rsync clamav clamav-update rclone setroubleshoot-server setools-console nfs-utils
+fi
+
 
 #Backup original configuration 
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.${DT}
@@ -165,32 +188,9 @@ if [[ "$HOSTNAME" != *"app1"* ]] ; then
   mount -t nfs 10.10.1.11:/share /mnt/share_app1
 fi
 
-#set services to start automaticly
-echo "Set auto startup of applications"
-chkconfig nginx on
+#Set sendmail to auto start ( it required SNMP configuration to send out emails throw GMAIL or other service)
 chkconfig sendmail on
-chkconfig php-fpm on
 
-#Update selinux configuration 
-#semanage port -l | grep http_port_t
-#chcon -v --type=httpd_sys_content_t /data/www
-#semanage fcontext -a -t httpd_sys_content_t /www/t.txt
-#restorecon -v /www/t.txt
-
-#Load policy
-# https://www.nginx.com/blog/using-nginx-plus-with-selinux/
-# crate policy for php-fm
-# ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm
-
-#SET enforcing for current session
-echo "Set SELINUX permission for nginx to serve from /data/www folder"
-setenforce 1
-#sealert -a /var/log/audit.d/audit.log 
-semodule -i /etc/selinux/nginx.pp
-semodule -i /etc/selinux/my-phpfpm.pp
-
-setsebool httpd_can_network_connect on
-setsebool httpd_use_nfs on
 
 # Change partition size 
 # Decrease /var/oled and add to /root 6GB
@@ -253,6 +253,16 @@ if [[ "$HOSTNAME" == *"app1"* ]] ; then
   ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_rsync  -q -N ""
   cp ~/.ssh/id_rsa_rsync.pub /share/root_app1_id_rsa_rsync.pub
   chown 600 ~/.ssh/*
+
+
+  #test website up
+  echo -e "\n-----"
+  echo "curl -v http://localhost/health-check.php"
+  echo "\n-----"
+  curl -v http://localhost/health-check.php
+  echo "\n-----"
+
+
 else
   echo "Execute on app2"
   #Execute on app 2,3,4
@@ -268,13 +278,6 @@ fi
 date
 date >> /tmp/instalation-script.txt
 echo "Instalation script completed " >> /tmp/instalation-script.txt
-
-#test website up
-echo -e "\n-----"
-echo "curl -v http://localhost/health-check.php"
-echo "\n-----"
-curl -v http://localhost/health-check.php
-
 echo ""
 echo "-----    Version 02.server-instalation-script-app.sh: ${version}    -----"
 echo ""

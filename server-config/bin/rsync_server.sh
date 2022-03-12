@@ -32,6 +32,7 @@ echo ""
 echo "Rsync configuration folder wtih root file system"
 rsync -rltDv --no-owner /home/opc/configuration/ /
 
+#Update export path 
 
 #update root crontab 
 /home/opc/bin/update_root_cron.sh
