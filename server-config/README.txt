@@ -2,6 +2,9 @@ Two servers architecture
 1. App1 - application server - nginx, php
 2. App2 - MySQL database
 
+REPO 
+
+OCI-1APP-1DB-SERVER
 
 Script is desing to install application to run Nginx, PHP, MySQL server on set of 4 servers in OCI Cloud.
 
@@ -21,15 +24,16 @@ Cloud Init script
 app1
 ##########
 #!/bin/bash
-export REPO=dev-2
-REPODIR=${HOME}/repository/${REPO}
+export BRANCH=dev-1
+export REPO_NAME=oci-1app-1db-server
+REPODIR=${HOME}/repository/${BRANCH}
 cd ${HOME}
 rm -rf * 
 mkdir -p ${REPODIR}
 cd ${REPODIR}
-wget https://github.com/mantonik/oci-always-free-high-availability/archive/refs/heads/${REPO}.zip
-unzip ${REPO}.zip
-cp -a oci-always-free-high-availability-${REPO}/server-config/* ${HOME}/
+wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${BRANCH}.zip
+unzip ${BRANCH}.zip
+cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
 sudo ./bin/01.install-server-4app-2db.sh
