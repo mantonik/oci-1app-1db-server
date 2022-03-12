@@ -46,8 +46,9 @@ app2, app3, app4
 ###########################
 #!/bin/bash
 IP_SUBNET=10.10.1
-export REPO=dev-2
-export REPODIR=${HOME}/repository/${REPO}
+export BRANCH=dev-1
+export REPO_NAME=oci-1app-1db-server
+export REPODIR=${HOME}/repository/${BRANCH}
 export https_proxy=http://${IP_SUBNET}.11:3128;
 export http_proxy=http://${IP_SUBNET}.11:3128;
 . /etc/profile
@@ -55,12 +56,12 @@ cd ${HOME}
 rm -rf * 
 mkdir -p ${REPODIR}
 cd ${REPODIR}
-wget https://github.com/mantonik/oci-always-free-high-availability/archive/refs/heads/${REPO}.zip
-unzip ${REPO}.zip
-cp -a oci-always-free-high-availability-${REPO}/server-config/* ${HOME}/
+wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${BRANCH}.zip
+unzip ${REBRANCHPO}.zip
+cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
-sudo /home/opc/bin/01.install-server-4app-2db.sh
+sudo ./bin/01.install-server.sh
 
 #########
 
