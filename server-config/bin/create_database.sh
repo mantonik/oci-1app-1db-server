@@ -24,4 +24,4 @@ mysql -u root -e "create database ${DATABASE};"
 mysql -u root -e "GRANT ALL PRIVILEGES ON ${APPUSER}.* TO '${DATABASE}'@'10.10.1.%';"  
 mysql -u ${APPUSER} -p${USRMYQLP} -e "show databases"  
 
-
+exit
