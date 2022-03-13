@@ -40,7 +40,7 @@ mkdir -p ${ROOTDIRPATH}
 #Create folder structure for certbot
 
 mkdir -p ${ROOTDIRPATH}/htdocs/.well-known
-echo $HOSTNAME > ${ROOTDIRPATH}/htdocs/.well-known/index.html
+echo $HOSTNAME > ${ROOTDIRPATH}/.well-known/index.html
 
 # Create nginx configuration for domain
 chown -R nginx:nginx /data/www/
