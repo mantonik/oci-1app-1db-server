@@ -50,7 +50,7 @@ if [[ "$HOSTNAME" == *"app1"* ]]; then
 fi 
 if [[ "$HOSTNAME" == *"app2"* ]] ; then
   echo "Stop MySQL "
-  systemctl stop mysqld
+  #systemctl stop mysqld
 fi
 
 echo "------------------"
@@ -58,7 +58,7 @@ echo "Start services"
 echo "------------------"
 if [[ "$HOSTNAME" == *"app2"* ]] ; then
   echo "start MySQL "
-  systemctl start mysqld
+  #systemctl start mysqld
 fi
 
 if [[ "$HOSTNAME" == *"app1"* ]]; then 
