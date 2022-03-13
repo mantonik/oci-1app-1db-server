@@ -16,6 +16,7 @@ ROOTDIRPATH="/data/www/domain/${DOMAINNAME}/htdocs"
 
 if [ -e ${ROOTDIRPATH} ]; then 
   echo "ROOT directory already exist - exit process "
+  echo "${ROOTDIRPATH}"
   exit
 fi
 
