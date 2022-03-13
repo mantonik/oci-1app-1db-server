@@ -38,5 +38,9 @@ mysql --login-path=r3306  < /home/opc/sql/create.database.sql
 
 mysql -u ${APPUSER} -p${USRMYQLP} -h 10.10.1.12 -e "show databases"  
 
+echo "----"
+echo "user/passwrod in file .private/.my.p"
+cat ~/.private/.my.p |grep ${APPUSER}
+echo "----"
 exit
  
