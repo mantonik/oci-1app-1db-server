@@ -3,7 +3,7 @@
 #sript will craete a database for application 
 #Execute it on the DB server.
 
-if (whoami != root)
+if [ "$EUID" -ne 0 ]
   then
     echo ""
     echo "Please run as root"
