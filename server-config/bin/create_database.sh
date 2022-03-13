@@ -19,7 +19,7 @@ read DATABASE
 #Crate user passwrod 
 
 USRMYQLP=`tr -dc A-Za-z0-9 </dev/urandom | head -c 20`
-export USRMYQLP="${USRMYQLP:3:8}!hD"
+export USRMYQLP="${USRMYQLP:3:8}!D${USRMYQLP:10:13}"
 
 APPUSER='usr'${DATABASE}
 echo 
