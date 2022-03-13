@@ -53,6 +53,12 @@ if [ ! -e /root/install ]; then
 fi
 
 cd /root/install
+if [ -e latest.tar.gz ]; then 
+  rm latest.tar.gz
+fi 
+if [ -e wordpress ] ; then 
+  rm -rf wordpress 
+fi
 wget https://wordpress.org/latest.tar.gz
 tar xvf latest.tar.gz
 cd /root/install/wordpress
