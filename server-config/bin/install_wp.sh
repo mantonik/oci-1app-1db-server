@@ -48,14 +48,18 @@ service nginx restart
 
 #setup wordpress
 echo " Download latest WP "
+if [ ! -e /root/install ]; then 
+  mkdir /root/install
+fi
+
 cd /root/install
 wget https://wordpress.org/latest.tar.gz
 tar xvf latest.tar.gz
 cd /root/install/wordpress
 
 echo "Copy to domain folder"
-cp -r * ${ROOTDIRPATH}/htdocs
-ls -l ${ROOTDIRPATH}/htdocs
+cp -r * ${ROOTDIRPATH}/htdocs/
+ls -l ${ROOTDIRPATH}/htdocs/
 echo "${DOMAINNAME} is up" > ${ROOTDIRPATH}/htdocs/test.html
 
 chown -R nginx:nginx /data/www/
