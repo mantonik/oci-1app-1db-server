@@ -44,7 +44,7 @@ chown -R nginx:nginx /data/www/
 find /data/www -type d -exec chmod 750 {} \;
 find /data/www -type f -exec chmod 640 {} \;
 
-exit
+exit 
 
 #dmcloudarchitect.com
 #support
