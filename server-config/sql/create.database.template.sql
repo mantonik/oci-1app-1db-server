@@ -1,4 +1,3 @@
-drop user 'APPUSER'@'10.10.1.0/24';
 CREATE USER 'APPUSER'@'10.10.1.0/24' IDENTIFIED BY 'USRMYQLP';
 select user,host from mysql.user;
 create database DATABASE_NAME;
