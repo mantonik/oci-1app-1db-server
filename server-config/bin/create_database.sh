@@ -26,11 +26,16 @@ echo
 echo "application user: "${APPUSER}
 echo "MySQL passwrod:   " ${USRMYQLP}
 
-echo "${APPUSER}ot:${USRMYQLP}" > ~/.private/.my.p
+echo "${APPUSER}:${USRMYQLP}" > ~/.private/.my.p
 
-mysql --login-path=r3306 -e "CREATE USER '${APPUSER}'@'10.10.1.%' IDENTIFIED BY '${USRMYQLP}';" 
-mysql --login-path=r3306 -e "create database ${DATABASE};" 
-mysql --login-path=r3306 -e "GRANT ALL PRIVILEGES ON ${APPUSER}.* TO '${DATABASE}'@'10.10.1.%';"  
+sed "s/${APPUSER}/${APPUSER}/g" < /home/opc/sql/create.database.template.sql > /home/opc/sql/create.database.sql
+sed "s/${DATABASE}/${DATABASE_NAME}/g" -i /home/opc/sql/create.database.sql
+sed "s/${USRMYQLP}/${USRMYQLP}/g" -i /home/opc/sql/create.database.sql
+
+
+
+mysql --login-path=r3306 -e < /home/opc/sql/create.database.sql
+
 mysql -u ${APPUSER} -p${USRMYQLP} -e "show databases"  
 
 exit
