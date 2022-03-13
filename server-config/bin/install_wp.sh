@@ -58,9 +58,9 @@ tar xvf latest.tar.gz
 cd /root/install/wordpress
 
 echo "Copy to domain folder"
-cp -r * ${ROOTDIRPATH}/htdocs/
-ls -l ${ROOTDIRPATH}/htdocs/
-echo "${DOMAINNAME} is up" > ${ROOTDIRPATH}/htdocs/test.html
+cp -r * ${ROOTDIRPATH}/
+ls -l ${ROOTDIRPATH}/
+echo "${DOMAINNAME} is up" > ${ROOTDIRPATH}/test.html
 
 chown -R nginx:nginx /data/www/
 find /data/www -type d -exec chmod 750 {} \;
