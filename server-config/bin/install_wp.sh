@@ -19,8 +19,9 @@ echo "Configure ngixn for domain: "${DOMAINNAME}
 echo "ROOT directory : "${ROOTDIRPATH}
 
 #Update nginx configuration 
-sed "s/DOMAIN-NAME/${DOMAINNAME}/g" < /etc/nginx/conf.d/0.template.wp.conf.txt > /etc/nginx/conf.d/${DOMAINNAME}.conf
-sed "s/ROOTDIRPATH/${ROOTDIRPATH}/g" -i /etc/nginx/conf.d/${DOMAINNAME}.conf
+sed "s|DOMAIN-NAME|${DOMAINNAME}|g" < /etc/nginx/conf.d/0.template.wp.conf.txt > /etc/nginx/conf.d/${DOMAINNAME}.conf
+
+sed "s|ROOTDIRPATH|${ROOTDIRPATH}|g" -i /etc/nginx/conf.d/${DOMAINNAME}.conf
 
 echo "Setup a nginx configuration for domain"
 #prepare file system for new domain 
