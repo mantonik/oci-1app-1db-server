@@ -3,6 +3,14 @@
 #sript will craete a database for application 
 #Execute it on the DB server.
 
+if (whoami != root)
+  then
+    echo ""
+    echo "Please run as root"
+    echo ""
+    exit
+fi
+
 echo "Script has to be executed as root user "
 
 echo "Enter database nane: "
