@@ -12,6 +12,7 @@ fi
 if [ $1x =="x" ]; then
   echo "Enter domain name: "
   read DOMAINNAME
+  exit
 else
   DOMAINNAME=$1
 fi
