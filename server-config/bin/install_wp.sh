@@ -9,8 +9,12 @@ if [ "$EUID" -ne 0 ]
 fi
 
 #Enter Domain Name 
-echo "Enter domain name: "
-read DOMAINNAME
+if [ $1x =="x" ]; then
+  echo "Enter domain name: "
+  read DOMAINNAME
+else
+  DOMAINNAME=$1
+fi
 echo "--------------"
 ROOTDIRPATH="/data/www/domain/${DOMAINNAME}/htdocs"
 
