@@ -11,7 +11,7 @@ fi
 #Enter Domain Name 
 echo "Enter domain name: "
 read DOMAINNAME
-
+echo "--------------"
 ROOTDIRPATH="/data/www/domain/${DOMAINNAME}/htdocs"
 
 if [ -e ${ROOTDIRPATH} ]; then 
