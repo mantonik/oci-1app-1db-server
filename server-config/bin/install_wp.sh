@@ -9,7 +9,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 #Enter Domain Name 
-if [ $1x =="x" ]; then
+if [ $1x == "x" ]; then
   echo "Enter domain name: "
   read DOMAINNAME
   exit
