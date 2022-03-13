@@ -1,5 +1,5 @@
 #!/bin/bash 
-
+set -x
 #sript will craete a database for application 
 #Execute it on the DB server.
 
@@ -34,7 +34,7 @@ sed "s/${USRMYQLP}/${USRMYQLP}/g" -i /home/opc/sql/create.database.sql
 
 
 
-mysql --login-path=r3306 -e < /home/opc/sql/create.database.sql
+mysql --login-path=r3306  < /home/opc/sql/create.database.sql
 
 mysql -u ${APPUSER} -p${USRMYQLP} -e "show databases"  
 
