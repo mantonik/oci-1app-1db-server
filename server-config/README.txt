@@ -57,11 +57,18 @@ rm -rf *
 mkdir -p ${REPODIR}
 cd ${REPODIR}
 wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${BRANCH}.zip
-unzip ${REBRANCHPO}.zip
+unzip ${BRANCH}.zip
 cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
-sudo ./bin/01.install-server.sh
+
+sudo $HOME/bin/01.install-server.sh
+
+###########
+To create DB execute script 
+
+create_database.sh 
+
 
 #########
 
