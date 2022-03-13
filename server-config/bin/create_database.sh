@@ -29,7 +29,7 @@ echo "MySQL passwrod:   " ${USRMYQLP}
 echo "${APPUSER}:${USRMYQLP}" > ~/.private/.my.p
 
 sed "s/APPUSER/${APPUSER}/g" < /home/opc/sql/create.database.template.sql > /home/opc/sql/create.database.sql
-sed "s/DATABASE/${DATABASE_NAME}/g" -i /home/opc/sql/create.database.sql
+sed "s/DATABASENAME/${DATABASE}/g" -i /home/opc/sql/create.database.sql
 sed "s/USRMYQLP/${USRMYQLP}/g" -i /home/opc/sql/create.database.sql
 
 
