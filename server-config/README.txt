@@ -25,16 +25,16 @@ app1
 ##########
 #!/bin/bash
 export IP_SUBNET=10.10.1
-export BRANCH=dev-1
+export REPO_BRANCH=dev-1
 export REPO_NAME=oci-1app-1db-server
-REPODIR=${HOME}/repository/${BRANCH}
+REPODIR=${HOME}/repository/${REPO_BRANCH}
 cd ${HOME}
 rm -rf * 
 mkdir -p ${REPODIR}
 cd ${REPODIR}
-wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${BRANCH}.zip
-unzip ${BRANCH}.zip
-cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
+wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${REPO_BRANCH}.zip
+unzip ${REPO_BRANCH}.zip
+cp -a ${REPO_NAME}-${REPO_BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
 
@@ -46,7 +46,7 @@ app2, app3, app4
 ###########################
 #!/bin/bash
 IP_SUBNET=10.10.1
-export BRANCH=dev-1
+export REPO_BRANCH=dev-1
 export REPO_NAME=oci-1app-1db-server
 export REPODIR=${HOME}/repository/${BRANCH}
 export https_proxy=http://${IP_SUBNET}.11:3128;
@@ -56,9 +56,9 @@ cd ${HOME}
 rm -rf * 
 mkdir -p ${REPODIR}
 cd ${REPODIR}
-wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${BRANCH}.zip
-unzip ${BRANCH}.zip
-cp -a ${REPO_NAME}-${BRANCH}/server-config/* ${HOME}/
+wget https://github.com/mantonik/${REPO_NAME}/archive/refs/heads/${REPO_BRANCH}.zip
+unzip ${REPO_BRANCH}.zip
+cp -a ${REPO_NAME}-${REPO_BRANCH}/server-config/* ${HOME}/
 cd ${HOME}
 ls -l
 
