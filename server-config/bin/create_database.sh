@@ -26,3 +26,4 @@ mysql --login-path=r3306 -e "GRANT ALL PRIVILEGES ON ${APPUSER}.* TO '${DATABASE
 mysql -u ${APPUSER} -p${USRMYQLP} -e "show databases"  
 
 exit
+ 
