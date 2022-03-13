@@ -6,7 +6,7 @@ server {
   server_name DOMAIN-NAME;
 
   #root /data/www/domain/DOMAIN-NAME/htdocs;
-  root ROOT-DIR-PATH;
+  root ROOTDIRPATH;
   index index.php;
 
   gzip on;
