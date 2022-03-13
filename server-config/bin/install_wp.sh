@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]
+  then
+    echo ""
+    echo "Please run as root"
+    echo ""
+    exit
+fi
+
 #Enter Domain Name 
 echo "Enter domain name: "
 read DOMAINNAME
