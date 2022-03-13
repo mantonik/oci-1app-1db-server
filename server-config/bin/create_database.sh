@@ -36,7 +36,7 @@ sed "s/USRMYQLP/${USRMYQLP}/g" -i /home/opc/sql/create.database.sql
 
 mysql --login-path=r3306  < /home/opc/sql/create.database.sql
 
-mysql -u ${APPUSER} -p${USRMYQLP} -e "show databases"  
+mysql -u ${APPUSER} -p${USRMYQLP} -h 10.10.1.12 -e "show databases"  
 
 exit
  
